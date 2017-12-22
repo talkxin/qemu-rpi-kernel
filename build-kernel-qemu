@@ -4,12 +4,11 @@
 #
 #######################################################
 
-TOOLCHAIN=arm-linux-gnueabihf
-COMMIT=38f2800e6e94019a00a2880bfed8fba37aea2e5d
-COMMIT=raspberrypi-kernel_1.20161100-1
-COMMIT=""
+# TOOLCHAIN=arm-linux-gnueabihf
+TOOLCHAIN=$(pwd)/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf
+COMMIT="rpi-4.9.y"
 INSTALL_PACKAGES=""
-USE_GIT=1
+USE_GIT=`which git`
 USB_WEBCAM_MODULES=""    # add USB & V4L modules for USB webcam support (didn't work as static)
 
 if [ -f build-kernel-qemu.conf ] ; then
@@ -18,21 +17,16 @@ fi
 
 if [ "$INSTALL_PACKAGES" ] ; then
 	sudo apt-get update
-	sudo apt-get install git libncurses5-dev gcc-arm-linux-gnueabihf
+	sudo apt-get install git libncurses5-dev gcc-arm-linux-gnueabihf unzip wget
 fi
 
 if [ "$USE_GIT" ] ; then
-	# checking out 4.4.y branch - change it if you want to change kernel version
-	# for kernel specific hash, have a looks at : https://github.com/raspberrypi/linux/commits/rpi-4.4.y
 	if [ ! -d linux ] ; then
-		git clone https://github.com/raspberrypi/linux.git
+		git clone git://github.com/raspberrypi/linux.git --branch "$COMMIT" --single-branch --depth 1
 	else
 		echo "Using existing Linux sources!"
 	fi
 	cd linux
-	if [ "$COMMIT" ] ; then
-		git checkout "$COMMIT"
-	fi
 else
 	if [ -z "$COMMIT" ] ; then echo "COMMIT missing!" >&2 ; exit 1 ; fi
 	wget -c https://github.com/raspberrypi/linux/archive/${COMMIT}.zip -O linux-${COMMIT}.zip
@@ -41,7 +35,7 @@ else
 	cd linux-${COMMIT}
 fi
 
-patch -p1 < ../linux-arm.patch
+# patch -p1 < ../linux-arm.patch
 
 make ARCH=arm versatile_defconfig
 KERNEL_VERSION=$(make kernelversion)
@@ -129,7 +123,7 @@ fi
 cat ../config_ip_tables >> .config
 
 make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- menuconfig
-make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- bzImage
+make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage
 cp arch/arm/boot/zImage $KERNEL_TARGET_FILE_NAME
 
 if [ $USB_WEBCAM_MODULES ] ; then
