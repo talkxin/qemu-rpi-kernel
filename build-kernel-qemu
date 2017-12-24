@@ -7,9 +7,25 @@
 TOOLCHAIN=arm-linux-gnueabihf
 # TOOLCHAIN=$(pwd)/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/arm-linux-gnueabihf
 COMMIT="rpi-4.4.y"
-INSTALL_PACKAGES=""
+INSTALL_PACKAGES="1"
 USE_GIT=`which git`
 USB_WEBCAM_MODULES=""    # add USB & V4L modules for USB webcam support (didn't work as static)
+
+while getopts ":ctu:" optname
+  do
+    case "$optname" in
+      "c")
+				COMMIT=$OPTARG
+        ;;
+      "t")
+        TOOLCHAIN=$OPTARG
+        ;;
+			"u")
+        USB_WEBCAM_MODULES="1"
+        ;;
+      *)
+    esac
+  done
 
 if [ -f build-kernel-qemu.conf ] ; then
 	. build-kernel-qemu.conf
@@ -85,10 +101,10 @@ CONFIG_FS_POSIX_ACL=y
 CONFIG_IKCONFIG=y
 CONFIG_IKCONFIG_PROC=y
 
+# kernel4.9需要调整system type参数
 # CONFIG_ARCH_MV78XX0=y
 EOF
 
-# kernel4.9需要调整system type参数
 if [ $USB_WEBCAM_MODULES ] ; then
 echo "Make sure you have drivers for your webcam selected in menuconfig"
 echo >> .config << EOF
