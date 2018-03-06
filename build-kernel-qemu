@@ -108,6 +108,8 @@ CONFIG_IKCONFIG_PROC=y
 
 # kernel4.9需要调整system type参数
 # CONFIG_ARCH_MV78XX0=y
+# kernel4.5以上需要dtb文件
+# CONFIG_ARM_APPENDED_DTB=y
 EOF
 
 if [ $USB_WEBCAM_MODULES ] ; then
