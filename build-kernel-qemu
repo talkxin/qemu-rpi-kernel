@@ -148,7 +148,7 @@ fi
 cat ../config_ip_tables >> .config
 
 make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- menuconfig
-make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage
+make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage dtbs
 # linux kernel 4.5以上需要通过指定dtb文件绕过
 cp arch/arm/boot/zImage $KERNEL_TARGET_FILE_NAME
 
