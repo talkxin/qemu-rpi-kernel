@@ -31,7 +31,7 @@ if [ -f build-kernel-qemu.conf ] ; then
 	. build-kernel-qemu.conf
 fi
 
-if [ ! `which arm-linux-gnueabi-gcc` ]; then
+if [ ! `which arm-linux-gnueabihf-gcc` ]; then
   sudo apt-get update
   sudo apt-get install git libncurses5-dev gcc-arm-linux-gnueabihf unzip wget
 fi
@@ -149,6 +149,7 @@ cat ../config_ip_tables >> .config
 
 make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- menuconfig
 make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage
+# linux kernel 4.5以上需要通过指定dtb文件绕过
 cp arch/arm/boot/zImage $KERNEL_TARGET_FILE_NAME
 
 if [ $USB_WEBCAM_MODULES ] ; then
