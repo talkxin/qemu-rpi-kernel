@@ -1,6 +1,7 @@
 #!/bin/bash -e
 #
 # Build ARM kernel 4.4.y for QEMU Raspberry Pi Emulation
+#https://raspberrypi.stackexchange.com/questions/38009/cannot-emulate-raspberry-pi-using-qemu-kernel-panic
 #
 #######################################################
 
