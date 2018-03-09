@@ -1,7 +1,6 @@
 #!/bin/bash -e
 #
 # Build ARM kernel 4.4.y for QEMU Raspberry Pi Emulation
-#https://raspberrypi.stackexchange.com/questions/38009/cannot-emulate-raspberry-pi-using-qemu-kernel-panic
 #
 #######################################################
 
@@ -37,10 +36,6 @@ if [ ! `which arm-linux-gnueabihf-gcc` ]; then
   sudo apt-get install git libncurses5-dev gcc-arm-linux-gnueabihf unzip wget
 fi
 
-# if [ "$INSTALL_PACKAGES" ] ; then
-# 	sudo apt-get update
-# 	sudo apt-get install git libncurses5-dev gcc-arm-linux-gnueabihf unzip wget
-# fi
 
 if [ "$USE_GIT" ] ; then
 	if [ ! -d linux ] ; then
