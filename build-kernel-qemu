@@ -103,7 +103,9 @@ CONFIG_IKCONFIG=y
 CONFIG_IKCONFIG_PROC=y
 
 # kernel4.9需要调整system type参数
-# CONFIG_ARCH_MV78XX0=y
+CONFIG_ARCH_MV78XX0=y
+
+CONFIG_SMC91X=y
 
 EOF
 
@@ -161,12 +163,3 @@ if [ $USB_WEBCAM_MODULES ] ; then
 fi
 
 cd ..
-
-
-# qemu-system-arm \
-# -M raspi2 \
-# -kernel kernel7.img \
-# -sd 2017-11-29-raspbian-stretch.img \
-# -append "rw earlyprintk loglevel=8 console=ttyAMA0,115200 dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootwait" \
-# -dtb bcm2709-rpi-2-b.dtb \
-# -serial stdio

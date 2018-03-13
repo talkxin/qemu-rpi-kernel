@@ -1,0 +1,37 @@
+pi@raspberrypi:~$ ethtool -i eth0
+driver: smc91x
+version: smc91x.c: v1.1, sep 22 2004 by
+firmware-version:
+expansion-rom-version:
+bus-info: smc91x.0
+supports-statistics: no
+supports-test: no
+supports-eeprom-access: yes
+supports-register-dump: no
+supports-priv-flags: no
+
+
+
+pi@raspberrypi:~$ cat /proc/bus/input/devices
+I: Bus=0011 Vendor=0001 Product=0002 Version=ab83
+N: Name="AT Raw Set 2 keyboard"
+P: Phys=fpga:06/input0
+S: Sysfs=/devices/fpga:06/serio0/input/input0
+U: Uniq=
+H: Handlers=sysrq kbd leds event0
+B: PROP=0
+B: EV=120013
+B: KEY=4 2000000 3803078 f800d001 feffffdf ffefffff ffffffff fffffffe
+B: MSC=10
+B: LED=7
+
+I: Bus=0011 Vendor=0002 Product=0006 Version=0000
+N: Name="ImExPS/2 Generic Explorer Mouse"
+P: Phys=fpga:07/input0
+S: Sysfs=/devices/fpga:07/serio1/input/input2
+U: Uniq=
+H: Handlers=mouse0 event1
+B: PROP=1
+B: EV=7
+B: KEY=1f0000 0 0 0 0 0 0 0 0
+B: REL=143
