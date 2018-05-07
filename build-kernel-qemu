@@ -151,5 +151,6 @@ if [ $USB_WEBCAM_MODULES ] ; then
         INSTALL_MOD_PATH=$MODULES_INSTALL_PATH modules_install
     echo "Copy modules to Raspberry to /lib/modules/$KERNEL_VERSION"
 fi
-
+#防止再次打包失败
+patch -Rp1 < ../linux-arm.patch
 cd ..
