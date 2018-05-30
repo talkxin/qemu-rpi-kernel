@@ -10,7 +10,7 @@ COMMIT="rpi-4.9.y"
 INSTALL_PACKAGES="1"
 USE_GIT=`which git`
 USB_WEBCAM_MODULES="0"    # add USB & V4L modules for USB webcam support (didn't work as static)
-PATCH="../linux-arm.patch"
+PATCH="${PWD}/linux-arm.patch"
 
 while getopts ":c:t:u:p:" optname
   do
