@@ -41,7 +41,7 @@ fi
 
 if [ ! `which arm-linux-gnueabihf-gcc` ]; then
   sudo apt-get update
-  sudo apt-get install -y git libncurses5-dev gcc-arm-linux-gnueabihf
+  sudo apt-get install -y libncurses5-dev gcc-arm-linux-gnueabihf
 fi
 
 
