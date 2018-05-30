@@ -70,8 +70,8 @@ patch -p1 < ${PATCH}
 
 make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- versatile_defconfig
 KERNEL_VERSION=$(make kernelversion)
-KERNEL_TARGET_FILE_NAME=../qemu-kernel-$KERNEL_VERSION
-MODULES_INSTALL_PATH=../qemu-kernel-$KERNEL_VERSION-modules
+KERNEL_TARGET_FILE_NAME={PATH}/qemu-kernel-$KERNEL_VERSION
+MODULES_INSTALL_PATH={PATH}/qemu-kernel-$KERNEL_VERSION-modules
 echo "Building Qemu Raspberry Pi kernel qemu-kernel-$KERNEL_VERSION"
 
 cat >> .config << EOF
@@ -146,12 +146,12 @@ CONFIG_MEDIA_CAMERA_SUPPORT=y
 EOF
 fi
 
-cat ../config_ip_tables >> .config
+cat {PATH}/config_ip_tables >> .config
 
 make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- menuconfig
 # linux kernel 4.5以上需要通过指定dtb文件绕过
 make -j 4 -k ARCH=arm CROSS_COMPILE=${TOOLCHAIN}- zImage dtbs
-cp arch/arm/boot/dts/versatile-pb.dtb ../
+cp arch/arm/boot/dts/versatile-pb.dtb {PATH}/
 
 cp arch/arm/boot/zImage $KERNEL_TARGET_FILE_NAME
 
@@ -166,5 +166,5 @@ if [ $USB_WEBCAM_MODULES ] ; then
     echo "Copy modules to Raspberry to /lib/modules/$KERNEL_VERSION"
 fi
 #防止再次打包失败
-patch -Rp1 < ../linux-arm.patch
+patch -Rp1 < {PATH}/linux-arm.patch
 cd ..
