@@ -52,7 +52,6 @@ if [ "$USE_GIT" ] ; then
     if [ $? -ne 0 ] ; then
       exit 0
     fi
-    zip -r ${COMMIT}.zip ${DIRPATH}/linux
 	else
 		echo "Using existing Linux sources!"
     exit 0
